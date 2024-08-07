@@ -183,6 +183,15 @@ class Landscape:
             self.module_list[mod_ind].mutate(par_limits, par_choice_values)
         self.fitness = self.get_fitness(fitness_pars)
 
+    # MARK: - number_attractors   
+
+    def number_attractors(self):
+        count = 0
+        for module in self.module_list:
+            if isinstance(module, Node):
+                count += 1     
+        self.cell.n_attrac = count
+
     def mutate_and_return(self, par_limits, par_choice_values, prob_pars, fitness_pars):
         """
         Mutates and also returns the landscape - required for parallel computation.
@@ -213,6 +222,8 @@ class Landscape:
 
 # ______________________________________________________________________________________________________________________
 # _____________________________________ Everything to do with cells _______________________________________________
+
+# MARK: - init_cells
 
     def init_cells(self, n, init_cond, noise=0.):
         """
@@ -256,6 +267,8 @@ class Landscape:
     def n(self):
         """ Number of cells currently in the landscape """
         return np.sum(~np.isnan(np.sum(self.cell_coordinates, axis=0)))
+    
+# MARK: - get_cell_states_static  
 
     def get_cell_states_static(self, coordinate=None):
         """
@@ -274,6 +287,8 @@ class Landscape:
         states = np.argmin(dist, axis=1)
 
         return states
+
+# MARK: - get_cell_states
 
     def get_cell_states(self, t, coordinate=None, measure='gaussian'):
         """
@@ -298,7 +313,7 @@ class Landscape:
             prob = np.zeros((coordinate.shape[1], len(self.module_list) + 1))
             for i, module in enumerate(self.module_list):
                 V, st, at = module.get_current_pars(t, self.regime, *self.morphogen_times)
-                prob[:, i] = np.exp(
+                prob[:,i] = np.exp(
                     -np.sum((coordinate.T - np.array((module.x, module.y))) ** 2, axis=1) / 2. / st ** 2) / st ** 2
             # print(prob/2/np.pi)
             prob = (prob.T / np.sum(prob, axis=1)).T
@@ -306,6 +321,8 @@ class Landscape:
             # print(prob*100)
             states = np.argmax(prob, axis=1)
         return states
+
+# MARK: - run_cells
 
     def run_cells(self, noise=0., frozen=False, t_freeze=None, same_time=True, measure='gaussian', ndt=100):
         """

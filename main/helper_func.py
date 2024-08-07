@@ -1,5 +1,28 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import glob
+import os
+
+state_colors = ['#000000', # Black
+    '#DC143C', # Crimson
+    '#00008B', # Dark Blue
+    '#228B22', # Forest Green
+    'indianred',
+    'tab:blue',
+    'tab:green',
+    'gold',
+    'tab:purple',
+    '#FF4500', # Orange Red
+    '#8A2BE2', # Blue Violet
+    '#5F9EA0', # Cadet Blue
+    '#D2691E', # Chocolate
+    '#FF7F50', # Coral
+    '#6495ED', # Cornflower Blue
+    '#9932CC', # Dark Orchid
+    '#E9967A', # Dark Salmon
+    '#8FBC8F', # Dark Sea Green
+    '#483D8B', # Dark Slate Blue
+    ]
 
 def d1_distance(result, target, weights):
     weights = np.tile(weights, (result.shape[0], 1))
@@ -22,7 +45,7 @@ def kl_distance(result, target, weights):
     return kl
 
 #new
-def plot_cell_concentration(data, state_colors , state_names = None, row_labels=None, prob=False):
+def plot_cell_concentration(data, state_names = None, row_labels=None, prob=False, output_dir =None):
     if row_labels is None:
         row_labels = [str(i) for i in range(1, data.shape[0] + 1)]
     state_names = [str(i) for i in range(1, data.shape[1] + 1)]
@@ -47,6 +70,9 @@ def plot_cell_concentration(data, state_colors , state_names = None, row_labels=
                 bar_labels[b] = ''
         ax.bar_label(rects, bar_labels, label_type='center', color='k')
         ax.legend(ncol=len(state_names), bbox_to_anchor=(0, 1), loc='lower left', fontsize='small')
+    if output_dir is not None:
+        output_path = os.path.join(output_dir, f"Proportions.png")
+        plt.savefig(output_path)
     plt.show()
 
 
@@ -119,3 +145,25 @@ def integrate_EM(f, t0, tf, nt, init_cond, noise, ndt=10, args=()):
             t += dt
         res[:, :, :, Delta_step] = y  # temporary
     return res
+
+def delete_all_images(output_dir, file_extension='*.png'):
+    # Construct the path pattern for the files to delete
+    pattern = os.path.join(output_dir, file_extension)
+    
+    # List all files matching the pattern
+    files_to_delete = glob.glob(pattern)
+    
+    # Delete each file
+    for file_path in files_to_delete:
+        try:
+            os.remove(file_path)
+            #print(f"Deleted {file_path}")
+        except Exception as e:
+            print(f"Error deleting {file_path}: {e}")
+
+def create_directory_if_not_exists(directory):
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+        print(f"Directory '{directory}' created.")
+    else:
+        print(f"Directory '{directory}' already exists.")

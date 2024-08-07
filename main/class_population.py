@@ -5,6 +5,7 @@ import time
 from copy import deepcopy
 import numpy as np
 from cell_class import Cells
+from landscape_visuals import visualize_potential
 
 class Population:
     def __init__(self, cell: Cells, N: int, problem_type, landscape_pars, prob_pars, fitness_pars,
@@ -83,7 +84,7 @@ class Population:
 # ______________________________________________________________________________________________________________________
 #  MARK: - Evolve Parallel
 
-    def evolve_parallel(self, ngenerations, fitness_pars, saved_files_dir, save_each=10) :
+    def evolve_parallel(self, ngenerations, fitness_pars, saved_files_dir, save_each=10, output_dir=None):
         """ Evolutionary optimization using all CPUs """
         timestr = time.strftime("%Y%m%d-%H%M%S")
         print('Timecode:', timestr)
@@ -104,6 +105,8 @@ class Population:
         pool = mp.Pool(mp.cpu_count())
 
         for igen in range(ngenerations):
+            if igen % 10 == 0:
+                print('Generation:', igen)
             results = []
             for odd_landscape in self.landscape_list[::2]:
                 results.append(pool.apply_async(odd_landscape.mutate_and_return,
@@ -127,6 +130,17 @@ class Population:
             if igen % save_each == 0:
                 with open(pickle_name + str(igen) + '.pickle', "wb") as f:
                     pickle.dump(self.landscape_list[0].module_list, f)
+            
+            if output_dir != None and igen % 10 == 0 :
+                L = 10.
+                npoints = 201
+                q = np.linspace(-L, L, npoints)
+                xx, yy = np.meshgrid(q, q, indexing='xy')
+                fig = visualize_potential(self.landscape_list[0], xx, yy, regime= self.landscape_list[0].cell.tf, 
+                                          color_scheme='order', scatter=True, elev=20, azim=-90, output_gif = output_dir, 
+                                          igen =igen, fit = self.landscape_list[0].fitness)
+
+            
 
         save_gens_file.close()
         pool.close()
@@ -137,4 +151,5 @@ class Population:
             pickle.dump(self, f)
         print('Best fitness:', max([landscape.fitness for landscape in self.landscape_list]))
         return fitness_traj
+
 
