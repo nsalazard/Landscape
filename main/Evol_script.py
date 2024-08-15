@@ -15,8 +15,8 @@ from landscape_segmentation import Somitogenesis_Landscape  #########
 from class_module import Node, UnstableNode, Center, NegCenter
 
 seed= 23
-NUM_EVO = 5
-NUM_LAND = 16
+NUM_EVO = 100
+NUM_LAND = 400
 save_dir = f'saved_files_{seed}/'
 
 np.random.seed(seed)
@@ -31,7 +31,7 @@ if __name__ == '__main__':
     tf = 80.
     tc = 60.
     div = 40 #40 cells
-    repl = 5 #20 replicates
+    repl = 20 #20 replicates
     #Total num cell = 40*20 = 800
     nt = int(tf*3)
     noise_init = 0.5
