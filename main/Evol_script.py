@@ -14,9 +14,9 @@ from helper_func import plot_cell_concentration, get_cell_data, delete_all_image
 from landscape_segmentation import Somitogenesis_Landscape  #########
 from class_module import Node, UnstableNode, Center, NegCenter
 
-seed= 23
+seed= 24
 NUM_EVO = 500
-NUM_LAND = 200
+NUM_LAND = 300
 save_dir = f'saved_files_{seed}/'
 
 np.random.seed(seed)
@@ -35,7 +35,7 @@ if __name__ == '__main__':
     #Total num cell = 40*20 = 800
     nt = int(tf*3)
     noise_init = 0.5
-    init_cond=(-8, 0)
+    init_cond=(-9, 0)
     W_H_d = 0.5
     W_H_dp = 1.5
 
@@ -51,13 +51,13 @@ if __name__ == '__main__':
     par_limits = {
     'x': (-8.,8.),
     'y': (-5., 5.),
-    'a': (1.4, 1.8), #(0.3,3.),
-    's': (1.4, 1.8) #(0.3, 2)
+    'a': (0.5, 2.), #(0.3,3.),
+    's': (0.5, 2.) #(0.3, 2)
     }
 
     par_choice_values = {
         'tau': (1.,),
-        'tilt_lmt': (-0.47, -0.01),
+        'tilt_lmt': (-0.5, -0.01),
     }
 
     landscape_pars = {

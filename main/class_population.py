@@ -84,7 +84,7 @@ class Population:
 # ______________________________________________________________________________________________________________________
 #  MARK: - Evolve Parallel
 
-    def evolve_parallel(self, ngenerations, fitness_pars, saved_files_dir, save_each=10, output_dir=None):
+    def evolve_parallel(self, ngenerations, fitness_pars, saved_files_dir, save_each=10,img_save=20, output_dir=None):
         """ Evolutionary optimization using all CPUs """
         timestr = time.strftime("%Y%m%d-%H%M%S")
         print('Timecode:', timestr)
@@ -131,7 +131,7 @@ class Population:
                 with open(pickle_name + str(igen) + '.pickle', "wb") as f:
                     pickle.dump(self.landscape_list[0].module_list, f)
             
-            if output_dir != None and (igen % 10 == 0 or igen == ngenerations - 1):
+            if output_dir != None and (igen % img_save == 0 or igen == ngenerations - 1):
                 L = 10.
                 npoints = 201
                 q = np.linspace(-L, L, npoints)
