@@ -15,8 +15,8 @@ from landscape_segmentation import Somitogenesis_Landscape  #########
 from class_module import Node, UnstableNode, Center, NegCenter
 
 seed= 22
-NUM_EVO = 200
-NUM_LAND = 200
+NUM_EVO = 10
+NUM_LAND = 16
 save_dir = f'saved_files_{seed}/'
 
 np.random.seed(seed)
@@ -31,7 +31,7 @@ if __name__ == '__main__':
     tf = 80.
     tc = 60.
     div = 40 #40 cells
-    repl = 10 #20 replicates
+    repl = 20 #20 replicates
     #Total num cell = 40*20 = 800
     nt = int(tf*3)
     noise_init = 0.5
@@ -169,7 +169,7 @@ if __name__ == '__main__':
                                 elev=20, azim=-90, output_gif = output_gif, igen =150, fit = P.landscape_list[0].fitness)
 
     create_gif_from_images(output_gif, f'images/{seed}/potential_time.gif', duration=1000)
-    delete_all_images(f'images/{seed}/GIF/', '*.png')
+    delete_all_images(f'images/{seed}/Gif/', '*.png')
 
     #Create a video of the cell dynamics
 
