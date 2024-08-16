@@ -29,7 +29,8 @@ class Population:
                                                          landscape_pars['morphogen_times'],
                                                          landscape_pars['used_fp_types'],
                                                          landscape_pars['immutable_pars_list'],
-                                                         landscape_pars['tilt'],
+                                                         landscape_pars['tiltx'],
+                                                         landscape_pars['tilty'],
                                                          landscape_pars['tilt_par'])
                                                         )
 

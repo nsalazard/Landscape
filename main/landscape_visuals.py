@@ -371,7 +371,7 @@ def visualize_potential(landscape, xx, yy, regime, color_scheme='fp_types', elev
 
     if output_gif is not None:
         ax.title.set_text(f'Generation: {igen} - Fitness: {fit:.5f}')
-        positive_variable = abs(landscape.tilt_var)
+        positive_variable = abs(landscape.tilt_var_x)
         formatted_variable = f"{positive_variable:.3f}".replace('.', '')  # Remove decimal point for filename
         output_path = os.path.join(output_gif, f"{regime}_{igen}_{formatted_variable}.png")
         

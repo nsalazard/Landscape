@@ -15,8 +15,8 @@ from landscape_segmentation import Somitogenesis_Landscape  #########
 from class_module import Node, UnstableNode, Center, NegCenter
 
 seed= 25
-NUM_EVO = 1000
-NUM_LAND = 400
+NUM_EVO = 5 #1000
+NUM_LAND = 16 #400
 save_dir = f'saved_files_{seed}/'
 
 np.random.seed(seed)
