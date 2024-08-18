@@ -77,7 +77,7 @@ class Landscape:
 
     def ModifyTilt_xy(self,t,k=0.5, times = None):
         if times is None:
-            times = (int(self.morphogen_times[0]/3), int(2*self.morphogen_times[0]/3))
+            times = (int(self.morphogen_times[0]), int((self.morphogen_times[0] + self.cell.tf)/2))
         time1= int((self.cell.t0 + times[0])/2	)
         time2= int((times[0] + times[1])/2	)
         time3= int((times[1] + self.cell.tf)/2	)
