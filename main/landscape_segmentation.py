@@ -38,7 +38,7 @@ class Somitogenesis_Landscape(Landscape):
         # penal_stddev = np.std(self.cell.prob_attrac[1:])
         penal_stddev = self.cell.std_around_value()
 
-        entropy = (-1.*self.cell.final_entropy ) - (self.cell.penal * 0.01) #- (self.cell.unclustered_cells * 0.01) #- (penal_stddev * 0.01)
+        entropy = (-1.*self.cell.final_entropy ) - (self.cell.unclustered_cells * 0.01) # - (self.cell.penal * 0.01) #- (penal_stddev * 0.01)
         #if (self.cell.n_attrac <= 2.):
         #    max_entropy = 1
         #else:
