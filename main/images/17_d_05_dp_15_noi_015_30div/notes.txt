@@ -1,0 +1,18 @@
+t0 = 0.
+tf = 80.
+tc = 60.
+div = 30 #40 cells
+repl = 20 #20 replicates
+#Total num cell = 40*20 = 800
+nt = int(tf*3)
+noise_init = 0.15
+init_cond=(-9, 0)
+W_H_d = 0.5
+W_H_dp = 1.5
+
+par_limits = {
+'x': (-8.,8.),
+'y': (-5., 5.),
+'a': (0.5, 2.), #(1., 2.)
+'s': (0.5, 2.) #(0.5, 2.)
+}

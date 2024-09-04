@@ -1,0 +1,13 @@
+NUM_EVO = 200
+NUM_LAND = 32
+t0 = 0.
+tf = 80.
+tc = 60.
+div = 60 #40 cells
+repl = 20 #20 replicates
+#Total num cell = 40*20 = 800
+nt = int(tf*3)
+noise_init = 0.15
+init_cond=(-9, 0)
+W_H_d = 0.5
+W_H_dp = 1.5
